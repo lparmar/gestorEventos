@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
+use App\Models\UsersProfile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,25 +18,40 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $userProfile = UsersProfile::where('user_id',$request->user()->id)->first();
         return view('profile.edit', [
-            'user' => $request->user(),
+            'userProfile' => $userProfile, 'user' => $request->user(),
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, UsersProfile $userProfile): RedirectResponse
     {
+
+        $userProfile->update([
+            'name' => $request->name,
+            'surname_first' => $request->surname_first,
+            'surname_second' => $request->surname_second,
+            'birthdate' => $request->birthdate,
+
+        ]);
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
+        $user =  User::where('id',$userProfile->user_id)->first();
+        $user->update([
+            'email' => $request->email,
+        ]);
+
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::to('profile');
     }
 
     /**

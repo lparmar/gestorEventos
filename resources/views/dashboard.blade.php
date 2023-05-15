@@ -8,11 +8,11 @@
       @vite(['resources/css/app.css','resources/js/app.js'])
   </head>
   <body>
-    
-  @include('layouts.navigation')
+
+  @include('layouts.navegation')
     <div class="w-full max-w-lg m-auto p-4 bg-white sm:p-6 md:p-8 dark:bg-gray-800">
-        
+
     </div>
-        
+
   </body>
 </html>

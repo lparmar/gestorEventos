@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UsersProfile;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,6 +47,17 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $user = User::findOrFail(Auth::user()->id);
+        $user->last_login = Carbon::now()->toDateTimeString();
+        $user->save();
+
+
+        $userProfile = new UsersProfile();
+        $userProfile->name = $request->name;
+        $userProfile->user_id = Auth::user()->id;
+        $userProfile->save();
+
+
+        return redirect('profile');
     }
 }

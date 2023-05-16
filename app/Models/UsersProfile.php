@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
 
-class UsersProfile extends Model
+class UsersProfile extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory,InteractsWithMedia, SoftDeletes;
 
     protected $table = 'users_profiles';
 
@@ -37,5 +40,14 @@ class UsersProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    //media
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('users_avatar')
+            ->singleFile()
+            ->useDisk('users_avatar')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/jpg']);
     }
 }

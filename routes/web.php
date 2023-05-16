@@ -25,12 +25,23 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/{userProfiles}', [ProfileController::class, 'resettingPasswords'])->name('profile.resettingPasswords');
+    Route::patch('/profile/{userProfile}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('users', UserController::class)
-    ->only(['index', 'store', 'edit', 'update', 'destroy'])
-    ->middleware(['auth', 'verified']);
+Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
+
+Route::get('/trashed-users', [UserController::class, 'trashed'])->name('users.trashed');
+Route::get('/restore-users/{id}', [UserController::class, 'restore'])->name('users.restore');
+
+Route::get('/force-delete-users', [UserController::class, 'deleteAll'])->name('users.deleteAll');
+Route::get('/force-delete-users/{id}', [UserController::class, 'deleting'])->name('users.deleting');
+
+Route::group(['middleware' => ['role:admin']], function () {
+        Route::resource('users', UserController::class)
+        ->only(['index', 'store', 'edit', 'update', 'destroy'])
+        ->names('users');
+});
 
 require __DIR__.'/auth.php';

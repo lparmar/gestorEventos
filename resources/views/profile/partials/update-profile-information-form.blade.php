@@ -9,7 +9,11 @@
         <div class="grid gap-6 m-3 md:grid-cols-3">
             <div class="mr-auto ml-auto mt-4">
 
-                    <input type="file" id="input-file-now" name="image" class="dropify"/>
+            @if($image != null)
+                <input type="file" id="input-file-now-custom-1" name="image" class="dropify"  data-default-file="{{$image->getUrl()}}"/>
+            @else
+                <input type="file" id="input-file-now" name="image" class="dropify"/>
+            @endif
 
                 <p>Correo electrónico: <strong>{{Auth::user()->email}}</strong></p>
             </div>

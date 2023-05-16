@@ -8,7 +8,9 @@ use App\Models\UsersProfile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -19,8 +21,9 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $userProfile = UsersProfile::where('user_id',$request->user()->id)->first();
+        $image = $userProfile->getMedia('users_avatar')->first();
         return view('profile.edit', [
-            'userProfile' => $userProfile, 'user' => $request->user(),
+            'userProfile' => $userProfile, 'user' => $request->user(), 'image'=>$image,
         ]);
     }
 
@@ -29,7 +32,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request, UsersProfile $userProfile): RedirectResponse
     {
-
         $userProfile->update([
             'name' => $request->name,
             'surname_first' => $request->surname_first,
@@ -51,6 +53,12 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+        if($request->has('image'))
+        {
+            $userProfile->addMediaFromRequest('image')->toMediaCollection('users_avatar');
+        }
+
+        Session::flash('message','Perfil actualizado correctamente.');
         return Redirect::to('profile');
     }
 
@@ -73,5 +81,23 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function resettingPasswords(Request $request,UsersProfile $userProfiles): RedirectResponse
+    {
+        if(Hash::check($request->current_password, $userProfiles->user->password))
+        {
+            $userProfiles->user->update([
+                'password'=>Hash::make($request->password)
+            ]);
+
+        Session::flash('message','Contraseña actualizada correctamente.');
+        }
+        else
+        {
+            Session::flash('customErrors','La contraseña actual no es correcta.');
+        }
+
+        return Redirect::to('profile'); 
     }
 }

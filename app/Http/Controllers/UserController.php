@@ -7,6 +7,7 @@ use App\Models\UsersProfile;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::orderBy('username', 'asc')->get();
+        $users = User::orderBy('email', 'asc')->get();
         return view('users.index', [
             'users' => $users,
         ]);
@@ -46,6 +47,7 @@ class UserController extends Controller
 
         $user->save();
 
+        $user->assignRole('profesor/a');
         $userProfile = new UsersProfile();
         $userProfile->name = $request->name;
         $userProfile->user_id = $user->id;
@@ -57,9 +59,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
+        return view('users.show', [
+            'user' => $user, 'userProfile' => $user->userProfile,
+        ]);
     }
 
     /**
@@ -68,9 +73,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+        $image = $user->userProfile->getMedia('users_avatar')->first();
         Session::flash('tittle','Editar perfil');
         return view('users.edit', [
-            'user' => $user, 'userProfile' => $user->userProfile,
+            'user' => $user, 'userProfile' => $user->userProfile, 'image'=>$image,
         ]);
     }
 
@@ -97,6 +103,11 @@ class UserController extends Controller
 
         ]);
 
+        if($request->has('image'))
+        {
+            $user->addMediaFromRequest('image')->toMediaCollection('users_avatar');
+        }
+
         Session::flash('message','Usuario actualizado correctamente.');
         return redirect(route('users.index'));
     }
@@ -108,5 +119,47 @@ class UserController extends Controller
     {
         //
         $user->delete();
+        Session::flash('delete',"Usuario ".$user->email." eliminado correctamente.");
+        return Redirect::to('users');
+    }
+
+    public function trashed()
+    {
+        //
+        Session::flash('tittle','Usuarios eliminados');
+        $users = User::onlyTrashed()->get();
+        return view('users.trashed',['users' => $users]);
+    }
+
+    public function deleting($id)
+    {
+
+        User::withTrashed()
+        ->where('id', $id)
+        ->forceDelete();
+
+        return redirect()->back();
+    }
+
+    public function deleteAll()
+    {
+
+        User::onlyTrashed()
+        ->forceDelete();
+
+        return redirect()->back();
+    }
+
+    public function restore($id)
+    {
+        User::withTrashed()
+        ->where('id',$id)
+        ->restore();
+
+        UsersProfile::withTrashed()
+        ->where('user_id',$id)
+        ->restore();
+
+        return redirect()->back();
     }
 }

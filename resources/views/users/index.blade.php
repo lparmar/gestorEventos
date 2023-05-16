@@ -37,7 +37,7 @@
                         <div id="dropdownAction" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
                                 <li class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <a href="#" >Usuarios eliminados </a>
+                                    <a href="{{route('users.trashed')}}" >Usuarios eliminados </a>
                                 </li>
 
                                 <li class="block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -47,7 +47,7 @@
                         </div>
 
                     </div>
-                        <label for="table-search" class="sr-only">Search</label>
+                        <label for="table-search-users" class="sr-only">Search</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
@@ -99,7 +99,7 @@
                         </ul>
                     </div>
                 @endif
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg ">
+            <div class="lg:static overflow-x-auto shadow-md sm:rounded-lg ">
 
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-[#ecfdf5] dark:bg-gray-700 dark:text-gray-400">
@@ -112,6 +112,9 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Correo electrónico
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Tipo de Usuario
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Fecha de creación
@@ -129,16 +132,22 @@
 
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                        @if($user->userProfile->getMedia('users_avatar')->first() == null)
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                                         </svg>
-                                        {{$user->username}}
+                                        @else
+                                            <img class="w-10 h-10 rounded-full" src="{{$user->userProfile->getMedia('users_avatar')->first()->getUrl()}}" alt="Foto perfil">
+                                        @endif
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{$user->username}}
+                                        {{$user->userProfile->name}}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{$user->email}}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{$user->roles()->first()->name}}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{$user->created_at}}
@@ -162,17 +171,18 @@
                                                         <a href="{{ route('users.edit', $user) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver perfil</a>
+                                                        <a href="{{ route('users.show', $user) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver perfil</a>
                                                     </li>
                                                 </ul>
+                                                @if ($user->roles()->first()->name != 'admin')
                                                 <div>
                                                 <form method="POST" action="{{ route('users.destroy', $user) }}">
                                                         @csrf
                                                         @method('delete')
                                                             <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Eliminar</button>
-
                                                 </form>
                                                 </div>
+                                                @endif
                                             </div>
                                     </td>
                                 </tr>

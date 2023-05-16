@@ -23,7 +23,11 @@
                     @method('patch')
                 <div class="max-w-md m-auto p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex flex-col items-center pb-10">
+                        @if($image != null)
+                            <input type="file" id="input-file-now-custom-1" name="image" class="dropify"  data-default-file="{{$image->getUrl()}}"/>
+                        @else
                             <input type="file" id="input-file-now" name="image" class="dropify"/>
+                        @endif
                         <h5 class="mb-1 mt-3 text-xl font-light dark:text-white">Correo electrónico: <strong>{{$user->email}}</strong></h5>
                     </div>
 

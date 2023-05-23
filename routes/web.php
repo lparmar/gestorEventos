@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -39,9 +40,16 @@ Route::get('/force-delete-users', [UserController::class, 'deleteAll'])->name('u
 Route::get('/force-delete-users/{id}', [UserController::class, 'deleting'])->name('users.deleting');
 
 Route::group(['middleware' => ['role:admin']], function () {
-        Route::resource('users', UserController::class)
+    Route::resource('users', UserController::class)
         ->only(['index', 'store', 'edit', 'update', 'destroy'])
         ->names('users');
 });
 
-require __DIR__.'/auth.php';
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::resource('activities', ActivityController::class)
+        ->only(['index', 'store', 'edit', 'update', 'destroy'])
+        ->names('activities');
+});
+
+
+require __DIR__ . '/auth.php';

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ActivityType;
+use App\Models\BodyActivity;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -13,8 +15,10 @@ class ActivityController extends Controller
     public function index()
     {
         $activities = Activity::all();
+        $typesActivity = ActivityType::all();
+        $bodyActivity = BodyActivity::all();
         return view('activities.index', [
-            'activities' => $activities,
+            'activities' => $activities, 'types_activities' => $typesActivity, 'body_activities' => $bodyActivity
         ]);
     }
 

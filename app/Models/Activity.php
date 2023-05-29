@@ -12,9 +12,9 @@ class Activity extends Model
 
     protected $fillable = [
         'name',
-        'activity_body',
+        'body_activity',
         'date_of_celebration',
-        'type',
+        'activity_types',
         'place_of_celebration',
     ];
 }

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->unsignedBigInteger('body_activities');
-            $table->foreign('body_activities')->references('id')->on('body_activities')->onDelete('cascade');
+            $table->unsignedBigInteger('body_activity');
+            $table->foreign('body_activity')->references('id')->on('body_activities')->onDelete('cascade');
             $table->date('date_of_celebration')->nullable();
             $table->unsignedBigInteger('activity_types');
             $table->foreign('activity_types')->references('id')->on('activity_types')->onDelete('cascade');

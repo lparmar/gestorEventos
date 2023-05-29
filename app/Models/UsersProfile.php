@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia;
 
 class UsersProfile extends Model implements HasMedia
 {
-    use HasFactory,InteractsWithMedia, SoftDeletes;
+    use HasFactory, InteractsWithMedia, SoftDeletes;
 
     protected $table = 'users_profiles';
 
@@ -26,6 +26,7 @@ class UsersProfile extends Model implements HasMedia
         'surname_second',
         'birthdate',
         'user_id',
+        'dni',
     ];
 
     /**

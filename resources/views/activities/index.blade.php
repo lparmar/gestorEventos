@@ -115,7 +115,7 @@
                         <div class="px-6 py-6 lg:px-8">
                             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Añadir nueva actividad
                             </h3>
-                            <form method="POST" action="{{ route('users.store') }}">
+                            <form method="POST" action="{{ route('activities.store') }}">
                                 @csrf
                                 <div class="grid gap-6 mb-6">
                                     <div>
@@ -129,15 +129,20 @@
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cuerpo
                                             de la actividad</label>
-                                        <select name="select">
-                                            <option value="value1">Value 1</option>
+                                        <select id="bodyActivity" name="bodyActivity"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            @foreach ($body_activities as $bodyActivity)
+                                                <option value="{{ $bodyActivity->id }}">{{ $bodyActivity->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
+
                                     </div>
                                     <div>
-                                        <label for="date-celebration"
+                                        <label for="dateCelebration"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha
                                             de celebración</label>
-                                        <input type="datetime-local" name="date-celebration" id="date-celebration"
+                                        <input type="datetime-local" name="dateCelebration" id="dateCelebration"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             required>
                                     </div>
@@ -145,15 +150,19 @@
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo
                                             de actividad</label>
-                                        <select name="select">
-                                            <option value="value1">Value 1</option>
+                                        <select id="typeActivity" name="typeActivity"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            @foreach ($types_activities as $typeActivity)
+                                                <option value={{ $typeActivity->id }}>{{ $typeActivity->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div>
                                         <label for="name"
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lugar
                                             de celebración</label>
-                                        <input type="text" name="name" id="name"
+                                        <input type="text" name="place_of_celebration" id="name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             required>
                                     </div>
@@ -211,7 +220,7 @@
                                 {{ $activity->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $activity->body_activities }}
+                                {{ $activity->body_activity }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $activity->date_of_celebration }}

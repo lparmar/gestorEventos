@@ -28,6 +28,7 @@ class UsersSeeder extends Seeder
         $adminProfile = UsersProfile::create([
             'user_id' => $user->id,
             'name' => 'admin',
+            'dni' => '37482773Q',
             'surname_first' => 'perez',
         ]);
     }

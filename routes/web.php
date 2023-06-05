@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,5 +52,10 @@ Route::group(['middleware' => ['role:admin']], function () {
         ->names('activities');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::resource('activities-list', TeacherController::class)
+        ->only(['index', 'store', 'edit', 'update', 'destroy', 'show'])
+        ->names('activities-list');
+});
 
 require __DIR__ . '/auth.php';

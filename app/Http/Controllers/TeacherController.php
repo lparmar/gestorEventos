@@ -43,10 +43,10 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Activity $activity)
+    public function show(Activity $activities_list)
     {
         //
-        return view('activities.show', $activity);
+        return view('activities.show', ['activity' => $activities_list]);
     }
 
     /**

@@ -30,6 +30,11 @@ class Activity extends Model implements HasMedia
         return $this->belongsTo(BodyActivity::class, 'body_activity');
     }
 
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'teacher_assistances', 'activity_id', 'teacher_id');
+    }
+
     //media
     public function registerMediaCollections(): void
     {

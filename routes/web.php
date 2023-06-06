@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home')->with('activities', Activity::all());
 });
 
 Route::get('/dashboard', function () {
@@ -32,32 +33,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
-
-Route::get('/trashed-users', [UserController::class, 'trashed'])->name('users.trashed');
-Route::get('/restore-users/{id}', [UserController::class, 'restore'])->name('users.restore');
-
-Route::get('/force-delete-users', [UserController::class, 'deleteAll'])->name('users.deleteAll');
-Route::get('/force-delete-users/{id}', [UserController::class, 'deleting'])->name('users.deleting');
-
 Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('users', UserController::class)
         ->only(['index', 'store', 'edit', 'update', 'destroy'])
         ->names('users');
+
+    Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
+
+    Route::get('/trashed-users', [UserController::class, 'trashed'])->name('users.trashed');
+    Route::get('/restore-users/{id}', [UserController::class, 'restore'])->name('users.restore');
+
+    Route::get('/force-delete-users', [UserController::class, 'deleteAll'])->name('users.deleteAll');
+    Route::get('/force-delete-users/{id}', [UserController::class, 'deleting'])->name('users.deleting');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
     Route::resource('activities', ActivityController::class)
         ->only(['index', 'store', 'edit', 'update', 'destroy'])
         ->names('activities');
+    Route::get('activities/{activity}/delete-media/{id}', [ActivityController::class, 'deleteMedia'])->name('activities.deleteMedia');
 });
 
-Route::get('activities/{activity}/delete-media/{id}', [ActivityController::class, 'deleteMedia'])->name('activities.deleteMedia');
 
 Route::middleware('auth')->group(function () {
     Route::resource('activities-list', TeacherController::class)
         ->only(['index', 'store', 'edit', 'update', 'destroy', 'show'])
         ->names('activities-list');
+    Route::post('activities-list/inscription', [TeacherController::class, 'createInscription'])->name('activities-list.createInscription');
 });
 
 require __DIR__ . '/auth.php';

@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\ActivityType;
 use App\Models\BodyActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TeacherController extends Controller
 {
@@ -71,5 +72,15 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         //
+    }
+
+    public function createInscription(Request $request)
+    {
+        $activity = Activity::find($request->activity);
+
+        $teacher = Teacher::where('user_id', $request->teacher)->first();
+        $activity->teachers()->attach($teacher->id);
+        Session::flash('message', 'Inscrito correctamente correctamente.');
+        return redirect()->back();
     }
 }

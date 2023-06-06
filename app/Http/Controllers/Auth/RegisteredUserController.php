@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UsersProfile;
 use App\Providers\RouteServiceProvider;
@@ -34,7 +35,7 @@ class RegisteredUserController extends Controller
     {
 
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -58,6 +59,10 @@ class RegisteredUserController extends Controller
         $userProfile->name = $request->name;
         $userProfile->user_id = Auth::user()->id;
         $userProfile->save();
+
+        $teacher = new Teacher();
+        $teacher->user_id = Auth::user()->id;
+        $teacher->save();
 
 
         return redirect('profile');

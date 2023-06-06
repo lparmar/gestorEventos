@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -59,12 +59,18 @@ return [
         'users_avatar' => [
             'driver' => 'local',
             'root' => storage_path('app/public/avatars/users/'),
-            'url' => env('APP_URL').'/storage/avatars/users/',
+            'url' => env('APP_URL') . '/storage/avatars/users/',
             'visbility' => 'public',
             'throw' => false,
         ],
 
-
+        'documentation_activities' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/documentation/activities/'),
+            'url' => env('APP_URL') . '/storage/documentation/activities/',
+            'visbility' => 'public',
+            'throw' => false,
+        ],
     ],
 
     /*

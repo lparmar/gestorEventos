@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+use App\Models\BodyActivity;
 use App\Models\User;
 use App\Models\UsersProfile;
 use Illuminate\Auth\Events\Registered;
@@ -19,8 +21,9 @@ class UserController extends Controller
     {
         //
         $users = User::orderBy('email', 'asc')->get();
+        $bodyActivities = BodyActivity::all();
         return view('users.index', [
-            'users' => $users,
+            'users' => $users, 'bodyActivities' => $bodyActivities
         ]);
     }
 
@@ -53,6 +56,7 @@ class UserController extends Controller
         $userProfile->user_id = $user->id;
         $userProfile->save();
 
+        Session::flash('message', 'Usuario creado correctamente.');
         return redirect()->back();
     }
 
@@ -74,9 +78,9 @@ class UserController extends Controller
     {
         //
         $image = $user->userProfile->getMedia('users_avatar')->first();
-        Session::flash('tittle','Editar perfil');
+        Session::flash('tittle', 'Editar perfil');
         return view('users.edit', [
-            'user' => $user, 'userProfile' => $user->userProfile, 'image'=>$image,
+            'user' => $user, 'userProfile' => $user->userProfile, 'image' => $image,
         ]);
     }
 
@@ -90,7 +94,7 @@ class UserController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        $userUpdate = User::where('id',$user->user_id)->first();
+        $userUpdate = User::where('id', $user->user_id)->first();
         $userUpdate->update([
             'email' => $request->email,
         ]);
@@ -103,12 +107,11 @@ class UserController extends Controller
 
         ]);
 
-        if($request->has('image'))
-        {
+        if ($request->has('image')) {
             $user->addMediaFromRequest('image')->toMediaCollection('users_avatar');
         }
 
-        Session::flash('message','Usuario actualizado correctamente.');
+        Session::flash('message', 'Usuario actualizado correctamente.');
         return redirect(route('users.index'));
     }
 
@@ -119,24 +122,24 @@ class UserController extends Controller
     {
         //
         $user->delete();
-        Session::flash('delete',"Usuario ".$user->email." eliminado correctamente.");
+        Session::flash('delete', "Usuario " . $user->email . " eliminado correctamente.");
         return Redirect::to('users');
     }
 
     public function trashed()
     {
         //
-        Session::flash('tittle','Usuarios eliminados');
+        Session::flash('tittle', 'Usuarios eliminados');
         $users = User::onlyTrashed()->get();
-        return view('users.trashed',['users' => $users]);
+        return view('users.trashed', ['users' => $users]);
     }
 
     public function deleting($id)
     {
 
         User::withTrashed()
-        ->where('id', $id)
-        ->forceDelete();
+            ->where('id', $id)
+            ->forceDelete();
 
         return redirect()->back();
     }
@@ -145,7 +148,7 @@ class UserController extends Controller
     {
 
         User::onlyTrashed()
-        ->forceDelete();
+            ->forceDelete();
 
         return redirect()->back();
     }
@@ -153,12 +156,12 @@ class UserController extends Controller
     public function restore($id)
     {
         User::withTrashed()
-        ->where('id',$id)
-        ->restore();
+            ->where('id', $id)
+            ->restore();
 
         UsersProfile::withTrashed()
-        ->where('user_id',$id)
-        ->restore();
+            ->where('user_id', $id)
+            ->restore();
 
         return redirect()->back();
     }

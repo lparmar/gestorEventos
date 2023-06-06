@@ -115,6 +115,11 @@
                         <div class="px-6 py-6 lg:px-8">
                             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Añadir nuevo usuario
                             </h3>
+                            <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                                role="alert">
+                                <span class="font-medium">El usuario nuevo tendrá el rol de
+                                    profesor, complete toda la información.</span>
+                            </div>
                             <form method="POST" action="{{ route('users.store') }}">
                                 @csrf
                                 <div class="grid gap-6 mb-6">
@@ -123,6 +128,26 @@
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
                                             electrónico</label>
                                         <input type="text" name="email" id="email"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required>
+                                    </div>
+                                    <div>
+                                        <label for="body"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enseñanza
+                                            impartida</label>
+                                        <select id="bodyActivity" name="bodyActivity"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            @foreach ($bodyActivities as $bodyActivity)
+                                                <option value="{{ $bodyActivity->id }}">{{ $bodyActivity->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="code_center"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Código
+                                            de centro</label>
+                                        <input type="text" name="code_center" id="code_center"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             required>
                                     </div>
@@ -142,7 +167,6 @@
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             required>
                                     </div>
-
                                 </div>
                                 <button type="submit"
                                     class="w-full text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center dark:focus:ring-[#2557D6]/50 mr-2">Añadir</button>

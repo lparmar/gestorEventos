@@ -6,6 +6,8 @@ use App\Models\Activity;
 use App\Models\ActivityType;
 use App\Models\BodyActivity;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
+use Illuminate\Support\Facades\Session;
 
 class ActivityController extends Controller
 {
@@ -43,6 +45,8 @@ class ActivityController extends Controller
             'activity_types' => $request->typeActivity,
             'place_of_celebration' => $request->place_of_celebration,
         ]);
+        Session::flash('message', 'Actividad creada correctamente.');
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +63,13 @@ class ActivityController extends Controller
     public function edit(Activity $activity)
     {
         //
+        $media = $activity->getMedia('documentation_activities');
+        $typesActivity = ActivityType::all();
+        $bodyActivity = BodyActivity::all();
+        Session::flash('tittle', 'Editar actividad');
+        return view('activities.edit', [
+            'activity' => $activity, 'types_activity' => $typesActivity, 'body_activity' => $bodyActivity, 'media' => $media
+        ]);
     }
 
     /**
@@ -67,6 +78,12 @@ class ActivityController extends Controller
     public function update(Request $request, Activity $activity)
     {
         //
+        if ($request->has('documentsActivities')) {
+            foreach ($request->documentsActivities as $documentation) {
+                $activity->addMedia($documentation)->toMediaCollection('documentation_activities');
+            }
+        }
+        return redirect()->back();
     }
 
     /**
@@ -75,5 +92,12 @@ class ActivityController extends Controller
     public function destroy(Activity $activity)
     {
         //
+    }
+
+    public function deleteMedia(Activity $activity, $id)
+    {
+        $media = $activity->getMedia('documentation_activities')->where('id', $id)->first(); // Obtener el archivo en específico
+        $media->delete(); // Eliminar el archivo
+        return redirect()->back();
     }
 }

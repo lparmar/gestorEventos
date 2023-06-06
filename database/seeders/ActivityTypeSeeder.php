@@ -17,7 +17,6 @@ class ActivityTypeSeeder extends Seeder
         ActivityType::create(['name' => 'Conferencias']);
         ActivityType::create(['name' => 'Seminarios']);
         ActivityType::create(['name' => 'Mesas de Trabajo']);
-        ActivityType::create(['name' => 'Bachillerato']);
         ActivityType::create(['name' => 'Exposiciones de material didáctico']);
     }
 }

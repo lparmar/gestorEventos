@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('teaching_body');
+            $table->foreign('teaching_body')->references('id')->on('body_activities')->onDelete('cascade');
+            $table->unsignedBigInteger('center_code');
             $table->timestamps();
         });
     }

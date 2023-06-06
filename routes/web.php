@@ -52,6 +52,8 @@ Route::group(['middleware' => ['role:admin']], function () {
         ->names('activities');
 });
 
+Route::get('activities/{activity}/delete-media/{id}', [ActivityController::class, 'deleteMedia'])->name('activities.deleteMedia');
+
 Route::middleware('auth')->group(function () {
     Route::resource('activities-list', TeacherController::class)
         ->only(['index', 'store', 'edit', 'update', 'destroy', 'show'])

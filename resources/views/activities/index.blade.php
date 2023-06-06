@@ -187,92 +187,107 @@
                 </ul>
             </div>
         @endif
-        <div class="lg:static overflow-x-auto shadow-md sm:rounded-lg ">
 
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-[#ecfdf5] dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Nombre
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Cuerpo de la actividad
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Fecha de celebración
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Tipo de actividad
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Lugar de celebración
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Acción
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($activities as $activity)
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td class="px-6 py-4">
-                                {{ $activity->name }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $activity->body_activity }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $activity->date_of_celebration }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $activity->activity_types }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $activity->place_of_celebration }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <button id="dropdownMenuIconButton" data-dropdown-toggle="{{ $activity->id }}"
-                                    class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                    type="button">
-                                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
-                                        </path>
-                                    </svg>
-                                </button>
+        @if (count($activities) <= 0)
+            <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                role="alert">
+                <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+                <span class="font-medium">No se han econtrado actividades en la base de datos.</span>
+            </div>
+        @else
+            <div class="lg:static overflow-x-auto shadow-md sm:rounded-lg ">
 
-                                <!-- Dropdown menu -->
-                                <div id="{{ $activity->id }}"
-                                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-30 dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownMenuIconButton">
-                                        <li>
-                                            <a href="{{ route('activities.edit', $activity) }}"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver
-                                                actividad</a>
-                                        </li>
-                                    </ul>
-                                    <div>
-                                        <form method="POST" action="#">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Eliminar</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-[#ecfdf5] dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Nombre
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Cuerpo de la actividad
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Fecha de celebración
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tipo de actividad
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Lugar de celebración
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Acción
+                            </th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        @foreach ($activities as $activity)
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td class="px-6 py-4">
+                                    {{ $activity->name }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $activity->body_activity }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $activity->date_of_celebration }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $activity->activity_types }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $activity->place_of_celebration }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button id="dropdownMenuIconButton" data-dropdown-toggle="{{ $activity->id }}"
+                                        class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        type="button">
+                                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor"
+                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+                                            </path>
+                                        </svg>
+                                    </button>
+
+                                    <!-- Dropdown menu -->
+                                    <div id="{{ $activity->id }}"
+                                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-30 dark:bg-gray-700 dark:divide-gray-600">
+                                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="dropdownMenuIconButton">
+                                            <li>
+                                                <a href="{{ route('activities.edit', $activity) }}"
+                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"
+                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ver
+                                                    actividad</a>
+                                            </li>
+                                        </ul>
+                                        <div>
+                                            <form method="POST" action="#">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
     </div>
 </div>
 @include('layouts.footer')

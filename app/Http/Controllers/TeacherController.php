@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\ActivityType;
 use App\Models\BodyActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class TeacherController extends Controller
@@ -17,11 +18,12 @@ class TeacherController extends Controller
     public function index()
     {
         //
-        $activities = Activity::all();
+        $teaching_body_user =  Teacher::where('user_id', Auth::user()->id)->first()->teaching_body;
+        $activities = Activity::where('body_activity', $teaching_body_user)->get();
         $typesActivity = ActivityType::all();
-        $bodyActivity = BodyActivity::all();
+        $bodyActivity = BodyActivity::where('id', $teaching_body_user)->first();
         return view('teachers.activities', [
-            'activities' => $activities, 'types_activities' => $typesActivity, 'body_activities' => $bodyActivity
+            'activities' => $activities, 'types_activities' => $typesActivity, 'body_activity' => $bodyActivity
         ]);
     }
 
@@ -80,7 +82,7 @@ class TeacherController extends Controller
 
         $teacher = Teacher::where('user_id', $request->teacher)->first();
         $activity->teachers()->attach($teacher->id);
-        Session::flash('message', 'Inscrito correctamente correctamente.');
+        Session::flash('message', 'Inscrito correctamente.');
         return redirect()->back();
     }
 }

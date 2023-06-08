@@ -38,7 +38,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         ->only(['index', 'store', 'edit', 'update', 'destroy'])
         ->names('users');
 
-    Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
+
 
     Route::get('/trashed-users', [UserController::class, 'trashed'])->name('users.trashed');
     Route::get('/restore-users/{id}', [UserController::class, 'restore'])->name('users.restore');
@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
         ->only(['index', 'store', 'edit', 'update', 'destroy', 'show'])
         ->names('activities-list');
     Route::post('activities-list/inscription', [TeacherController::class, 'createInscription'])->name('activities-list.createInscription');
+    Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
 });
 
 require __DIR__ . '/auth.php';

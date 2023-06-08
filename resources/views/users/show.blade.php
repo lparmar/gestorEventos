@@ -3,8 +3,14 @@
 <div class="p-4 sm:ml-64">
     <h1 class="text-3xl font-bold dark:text-white">Perfil usuario</h1>
     <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <ul
+            class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+            <li
+                class="mr-2 inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">
+                Información del perfil
+            </li>
+        </ul>
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <h5 class="m-3 text-xl font-bold dark:text-white">Información del perfil</h5>
             <div class="grid gap-6 m-3 md:grid-cols-2">
                 <div class="m-auto">
                     @if ($user->userProfile->getMedia('users_avatar')->first() == null)

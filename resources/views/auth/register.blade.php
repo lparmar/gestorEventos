@@ -19,7 +19,7 @@
             @csrf
             <h3 class="text-3xl font-bold dark:text-[#013500]">Regístrate</h3>
             <div class="text-md font-medium text-[#013500] dark:text-gray-300">
-                ¿Ya tienes una cuenta? <a href="#"
+                ¿Ya tienes una cuenta? <a href="{{ route('login') }}"
                     class="text-[#27CE4C] underline dark:text-blue-500"><strong>Inicia sesión</strong></a>
             </div>
             <div>

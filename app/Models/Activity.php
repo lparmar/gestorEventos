@@ -42,4 +42,11 @@ class Activity extends Model implements HasMedia
             ->useDisk('documentation_activities')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/jpg', 'application/pdf', 'application/docx', 'application/xlsx', 'application/csv', 'video/avi', 'video/mpeg', 'video/mov', 'video/mp4']);
     }
+
+    public function registerMediaCollectionsAvatars(): void
+    {
+        $this->addMediaCollection('activities_avatar')
+            ->useDisk('activities_avatar')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/jpg']);
+    }
 }

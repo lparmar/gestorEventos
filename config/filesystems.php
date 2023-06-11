@@ -64,6 +64,14 @@ return [
             'throw' => false,
         ],
 
+        'activities_avatar' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/avatars/activities/'),
+            'url' => env('APP_URL') . '/storage/avatars/activities/',
+            'visbility' => 'public',
+            'throw' => false,
+        ],
+
         'documentation_activities' => [
             'driver' => 'local',
             'root' => storage_path('app/public/documentation/activities/'),

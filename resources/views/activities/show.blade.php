@@ -61,15 +61,27 @@
                 Información de la actividad
             </li>
         </ul>
+        <div
+            class="w-full max-w-sm m-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            @if ($activity->getMedia('activities_avatar')->first() == null)
+                <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" fill="currentColor"
+                    class="bi bi-image" viewBox="0 0 16 16">
+                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    <path
+                        d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                </svg>
+            @else
+                <img class="p-8 rounded-t-lg m-auto"
+                    src="{{ $activity->getMedia('activities_avatar')->first()->getUrl() }}" alt="Bonnie image" />
+            @endif
+        </div>
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg mt-6">
             <div>
                 <h5 class="mb-6 text-xl font-bold dark:text-white">{{ $activity->name }}</h5>
             </div>
-
-
             <div class="mx-auto">
-
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
+
                     <div
                         class="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2">
                         <figure

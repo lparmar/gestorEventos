@@ -141,7 +141,7 @@
                         </p>
                     </div>
 
-                    <div class="flex items-center">
+                    <div class="flex items-between">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
                             <path
@@ -150,13 +150,25 @@
                                 d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                         </svg>
                         <p class="font-normal text-gray-700 dark:text-gray-400">
-                            {{ $activity->place_of_celebration }}
+                            {{ $activity->activityBody->name }}
                         </p>
                     </div>
-                    <div class="flex items-center justify-end">
+                    <div class="flex items-center justify-between">
+                        @if ($activity->getMedia('activities_avatar')->first() == null)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"
+                                fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                <path
+                                    d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
+                            </svg>
+                        @else
+                            <img class="p-4 rounded-t-lg m-auto" style="height: 10rem; width: 10rem"
+                                src="{{ $activity->getMedia('activities_avatar')->first()->getUrl() }}"
+                                alt="Bonnie image" />
+                        @endif
                         <a href="#"
                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
+                            Ver información
                             <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"

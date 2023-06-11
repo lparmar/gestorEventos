@@ -46,6 +46,9 @@ class ActivityController extends Controller
             'activity_types' => $request->typeActivity,
             'place_of_celebration' => $request->place_of_celebration,
         ]);
+
+        $activity->addMediaFromRequest('image_activity')->toMediaCollection('activities_avatar');
+
         Session::flash('message', 'Actividad creada correctamente.');
         return redirect()->back();
     }

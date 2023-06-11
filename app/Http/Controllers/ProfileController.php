@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\Users\ResettingPasswords;
 use App\Models\User;
 use App\Models\UsersProfile;
 use Illuminate\Http\RedirectResponse;
@@ -20,10 +21,10 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        $userProfile = UsersProfile::where('user_id',$request->user()->id)->first();
+        $userProfile = UsersProfile::where('user_id', $request->user()->id)->first();
         $image = $userProfile->getMedia('users_avatar')->first();
         return view('profile.edit', [
-            'userProfile' => $userProfile, 'user' => $request->user(), 'image'=>$image,
+            'userProfile' => $userProfile, 'user' => $request->user(), 'image' => $image,
         ]);
     }
 
@@ -46,19 +47,19 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        $user =  User::where('id',$userProfile->user_id)->first();
+        $user =  User::where('id', $userProfile->user_id)->first();
         $user->update([
+            'dni' => $request->dni,
             'email' => $request->email,
         ]);
 
         $request->user()->save();
 
-        if($request->has('image'))
-        {
+        if ($request->has('image')) {
             $userProfile->addMediaFromRequest('image')->toMediaCollection('users_avatar');
         }
 
-        Session::flash('message','Perfil actualizado correctamente.');
+        Session::flash('message', 'Perfil actualizado correctamente.');
         return Redirect::to('profile');
     }
 
@@ -83,21 +84,18 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function resettingPasswords(Request $request,UsersProfile $userProfiles): RedirectResponse
+    public function resettingPasswords(ResettingPasswords $request, UsersProfile $userProfiles): RedirectResponse
     {
-        if(Hash::check($request->current_password, $userProfiles->user->password))
-        {
+        if (Hash::check($request->current_password, $userProfiles->user->password)) {
             $userProfiles->user->update([
-                'password'=>Hash::make($request->password)
+                'password' => Hash::make($request->password)
             ]);
 
-        Session::flash('message','Contraseña actualizada correctamente.');
-        }
-        else
-        {
-            Session::flash('customErrors','La contraseña actual no es correcta.');
+            Session::flash('message', 'Contraseña actualizada correctamente.');
+        } else {
+            Session::flash('customErrors', 'La contraseña actual no es correcta.');
         }
 
-        return Redirect::to('profile'); 
+        return Redirect::to('profile');
     }
 }

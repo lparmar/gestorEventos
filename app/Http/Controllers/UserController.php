@@ -42,6 +42,7 @@ class UserController extends Controller
     {
         //
         $user = User::create([
+            'dni' => $request->dni,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -96,6 +97,7 @@ class UserController extends Controller
 
         $userUpdate = User::where('id', $user->user_id)->first();
         $userUpdate->update([
+            'dni' => $request->dni,
             'email' => $request->email,
         ]);
 

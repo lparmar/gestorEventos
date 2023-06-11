@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
         ->names('activities-list');
     Route::post('activities-list/inscription', [TeacherController::class, 'createInscription'])->name('activities-list.createInscription');
     Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/filters-activities-list', [ActivityController::class, 'listActivity'])->name('activities.listActivity');
+    Route::get('/filters-activities-list-teacher', [ActivityController::class, 'listTeacher'])->name('activities.listTeacher');
 });
 
 require __DIR__ . '/auth.php';

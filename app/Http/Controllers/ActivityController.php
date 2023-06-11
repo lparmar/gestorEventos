@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Activity;
 use App\Models\ActivityType;
 use App\Models\BodyActivity;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Session;
@@ -99,5 +100,23 @@ class ActivityController extends Controller
         $media = $activity->getMedia('documentation_activities')->where('id', $id)->first(); // Obtener el archivo en específico
         $media->delete(); // Eliminar el archivo
         return redirect()->back();
+    }
+
+    public function listActivity()
+    {
+
+        $activities = Activity::all();
+        $bodyActivity = BodyActivity::all();
+        return view('activities.list', [
+            'activities' => $activities, 'body_activities' => $bodyActivity
+        ]);
+    }
+
+
+    public function listTeacher()
+    {
+        $teachers = Teacher::all();
+        $teachers->load('user');
+        return view('activities.list_teacher', ['teachers' => $teachers]);
     }
 }

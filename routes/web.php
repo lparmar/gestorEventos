@@ -39,7 +39,7 @@ Route::group(['middleware' => ['role:admin']], function () {
         ->names('users');
 
 
-
+    Route::post('/resettingPasswords/{userProfiles}', [UserController::class, 'resettingPasswords'])->name('users.resettingPasswords');
     Route::get('/trashed-users', [UserController::class, 'trashed'])->name('users.trashed');
     Route::get('/restore-users/{id}', [UserController::class, 'restore'])->name('users.restore');
 

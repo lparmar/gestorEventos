@@ -126,26 +126,26 @@
 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
     <h5 class="mb-6 text-xl font-bold dark:text-white">Actualizar contraseña</h5>
     <div class="mx-auto">
-        <form id="formUpdate" method="POST" action="{{ route('users.update', $userProfile) }}">
+        <form id="formUpdate" method="POST" action="{{ route('users.resettingPasswords', $userProfile) }}">
 
             @csrf
-            @method('patch')
+
             <div class="grid gap-6 mb-6 md:grid-cols-1">
 
                 <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva
                         contraseña</label>
                     <input type="password" id="password" name="password"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="mb-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required>
                 </div>
 
                 <div>
-                    <label for="name"
+                    <label for="password_confirmation"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmar
                         contraseña</label>
-                    <input type="password" id="name" name="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <input type="password" id="password_confirmation" name="password_confirmation"
+                        class="mb-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required>
                 </div>
 

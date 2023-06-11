@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Users\ResettingPasswords;
 use App\Models\Activity;
 use App\Models\BodyActivity;
 use App\Models\User;
 use App\Models\UsersProfile;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -166,5 +168,18 @@ class UserController extends Controller
             ->restore();
 
         return redirect()->back();
+    }
+
+    public function resettingPasswords(ResettingPasswords $request, UsersProfile $userProfiles): RedirectResponse
+    {
+        if ($userProfiles->user->update([
+            'password' => Hash::make($request->password)
+        ])) {
+            Session::flash('message', 'Contraseña actualizada correctamente.');
+        } else {
+            Session::flash('customErrors', 'La contraseña actual no es correcta.');
+        }
+
+        return Redirect::to('users');
     }
 }

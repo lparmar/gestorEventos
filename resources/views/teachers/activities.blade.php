@@ -54,36 +54,41 @@
                 </button>
             </div>
         @endif
-        <ul
-            class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-            <li
-                class="mr-2 inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">
-                Actividades sobre: {{ $body_activity->name }}
-            </li>
-        </ul>
-        <div class="grid gap-6 m-3 md:grid-cols-2 pb-20">
-            @foreach ($activities as $activity)
-                <a href="{{ route('activities-list.show', $activity) }}"
-                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                    <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                        src="/docs/images/blog/image-4.jpg" alt="">
-                    <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {{ $activity->name }}</h5>
-                        @foreach ($types_activities as $typeActivity)
-                            @if ($typeActivity->id === $activity->activity_types)
-                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                    {{ $typeActivity->name }}
-                                </p>
-                            @endif
-                        @endforeach
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {{ $activity->place_of_celebration }}</p>
-                    </div>
+        @if ($body_activity !== null)
+            <ul
+                class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                <li
+                    class="mr-2 inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">
+                    Actividades sobre: {{ $body_activity->name }}
+                </li>
+            </ul>
+            <div class="grid gap-6 m-3 md:grid-cols-2 pb-20">
+                @foreach ($activities as $activity)
+                    <a href="{{ route('activities-list.show', $activity) }}"
+                        class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                            src="/docs/images/blog/image-4.jpg" alt="">
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {{ $activity->name }}</h5>
+                            @foreach ($types_activities as $typeActivity)
+                                @if ($typeActivity->id === $activity->activity_types)
+                                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                        {{ $typeActivity->name }}
+                                    </p>
+                                @endif
+                            @endforeach
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                {{ $activity->place_of_celebration }}</p>
+                        </div>
 
-                </a>
-            @endforeach
-        </div>
+                    </a>
+                @endforeach
+            </div>
+        @endif
+        <input type="hidden" id="body_activity" value="{{ $body_activity }}" name="body_activity">
     </div>
 </div>
-@include('layouts.footer')
+@section('js')
+    <script src="{{ asset('js/activity/show_activity.js') }}"></script>
+    @include('layouts.footer')

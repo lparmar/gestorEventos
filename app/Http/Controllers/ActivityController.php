@@ -122,4 +122,10 @@ class ActivityController extends Controller
         $teachers->load('user');
         return view('activities.list_teacher', ['teachers' => $teachers]);
     }
+
+    public function listTeacherActivity()
+    {
+        $activities = Activity::all();
+        return view('activities.list_teacher_activities', ['activities' => $activities]);
+    }
 }

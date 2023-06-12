@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Users\ResettingPasswords;
 use App\Models\Activity;
 use App\Models\BodyActivity;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UsersProfile;
 use Illuminate\Auth\Events\Registered;
@@ -58,6 +59,11 @@ class UserController extends Controller
         $userProfile->name = $request->name;
         $userProfile->user_id = $user->id;
         $userProfile->save();
+
+        $teacher = new Teacher();
+        $teacher->user_id = $user->id;
+        $teacher->center_code = $request->code_center;
+        $teacher->save();
 
         Session::flash('message', 'Usuario creado correctamente.');
         return redirect()->back();

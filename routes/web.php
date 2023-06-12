@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/filters-activities-list', [ActivityController::class, 'listActivity'])->name('activities.listActivity');
     Route::get('/filters-activities-list-teacher', [ActivityController::class, 'listTeacher'])->name('activities.listTeacher');
+    Route::get('/filters-list-teacher-activities', [ActivityController::class, 'listTeacherActivity'])->name('activities.listTeacherActivity');
 });
 
 require __DIR__ . '/auth.php';

@@ -36,6 +36,16 @@
                 <input type="text" id="surname_first" name="surname_first"
                     class="mb-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value="{{ $userProfile->surname_first }}" required>
+
+                <label for="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enseñanza
+                    impartida</label>
+                <select id="bodyActivity" name="bodyTeacher"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    @foreach ($bodyActivities as $bodyActivity)
+                        <option value="{{ $bodyActivity->id }}">{{ $bodyActivity->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
             <div>
 
@@ -43,7 +53,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                 <input type="text" id="name" name="name"
                     class="mb-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value="{{ $userProfile->name }}">
+                    value="{{ $userProfile->name }}" required>
 
                 <label for="surname_second" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Segundo
                     apellido</label>
@@ -70,4 +80,6 @@
         </div>
     </form>
 
-</section>
+    @section('js')
+        <script src="{{ asset('js/profile/update_profile.js') }}"></script>
+    </section>

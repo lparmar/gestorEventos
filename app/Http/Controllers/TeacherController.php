@@ -22,7 +22,6 @@ class TeacherController extends Controller
         $activities = Activity::where('body_activity', $teaching_body_user)->get();
         $typesActivity = ActivityType::all();
         $bodyActivity = BodyActivity::where('id', $teaching_body_user)->first();
-        dd((Teacher::where('user_id', Auth::user()->id)->first()->teaching_body));
         return view('teachers.activities', [
             'activities' => $activities, 'types_activities' => $typesActivity, 'body_activity' => $bodyActivity
         ]);

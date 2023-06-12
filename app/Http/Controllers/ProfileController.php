@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\Users\ResettingPasswords;
+use App\Models\BodyActivity;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UsersProfile;
 use Illuminate\Http\RedirectResponse;
@@ -23,8 +25,9 @@ class ProfileController extends Controller
     {
         $userProfile = UsersProfile::where('user_id', $request->user()->id)->first();
         $image = $userProfile->getMedia('users_avatar')->first();
+        $bodyActivities = BodyActivity::all();
         return view('profile.edit', [
-            'userProfile' => $userProfile, 'user' => $request->user(), 'image' => $image,
+            'userProfile' => $userProfile, 'user' => $request->user(), 'image' => $image, 'bodyActivities' => $bodyActivities
         ]);
     }
 
@@ -51,6 +54,11 @@ class ProfileController extends Controller
         $user->update([
             'dni' => $request->dni,
             'email' => $request->email,
+        ]);
+
+        $teacher = Teacher::where('user_id', $userProfile->user_id)->first();
+        $teacher->update([
+            'teaching_body' => $request->bodyTeacher,
         ]);
 
         $request->user()->save();

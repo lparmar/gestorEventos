@@ -11,10 +11,10 @@
 
 <body>
     <div class="ml-20 mt-4">
-        <img src="images/logo.png" class="h-400" alt="  Logo" />
+        <img src="images/logo.png" alt="  Logo" />
     </div>
 
-    <div class="w-full max-w-lg m-auto bg-white sm:p-6 md:p-8 dark:bg-gray-800">
+    <div class="w-full max-w-lg m-auto bg-white sm:p-6 md:p-4 dark:bg-gray-800">
         <form class="space-y-6" method="POST" action="{{ route('register') }}">
             @csrf
             <h3 class="text-3xl font-bold dark:text-[#013500]">Regístrate</h3>
@@ -29,6 +29,7 @@
                     class="bg-[#F5F5F5] border border-[#D9D9D9] text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     required>
             </div>
+
             <div>
                 <label for="password" class="block mb-1 text-md font-medium text-gray-900 dark:text-white">Crear una
                     contraseña</label>

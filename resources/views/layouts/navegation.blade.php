@@ -151,7 +151,7 @@
                                         por profesor</a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="{{ route('activities.listTeacherActivity') }}"
                                         class="block px-4 py-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#DEFFE5] dark:hover:bg-gray-700">Profesores
                                         por actividad</a>
                                 </li>
@@ -161,7 +161,7 @@
                 @endif
                 @if (Auth::User()->roles()->first()->name == 'profesor/a')
                     <li>
-                        <a href="{{ route('activities-list.index') }}"
+                        <a href="{{ route('activities-list.index') }}" id="activity-list"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#BCF0DA] dark:hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
@@ -174,7 +174,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('activities-list.index') }}"
+                        <a href="{{ route('activities-list.index') }}" id="activity-list"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#BCF0DA] dark:hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">

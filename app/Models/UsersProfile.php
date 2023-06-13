@@ -26,7 +26,6 @@ class UsersProfile extends Model implements HasMedia
         'surname_second',
         'birthdate',
         'user_id',
-        'dni',
     ];
 
     /**

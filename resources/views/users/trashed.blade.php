@@ -28,8 +28,7 @@
                             </li>
 
                             <li class="block hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                <button type="button" class="px-4 py-2" data-modal-target="staticModal"
-                                    data-modal-toggle="staticModal">Restaurar todos</button>
+                                <button type="button" class="px-4 py-2">Restaurar todos</button>
                             </li>
                         </ul>
                     </div>
@@ -114,4 +113,6 @@
         @endif
     </div>
 </div>
-@include('layouts.footer')
+@section('js')
+    <script src="{{ asset('js/user/trashed_users.js') }}"></script>
+    @include('layouts.footer')

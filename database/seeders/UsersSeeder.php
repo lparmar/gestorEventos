@@ -19,6 +19,7 @@ class UsersSeeder extends Seeder
         //
         $user = User::create([
             'email' => 'admin@example.org',
+            'dni' => '37482773Q',
             'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now(),
         ]);
@@ -28,7 +29,6 @@ class UsersSeeder extends Seeder
         $adminProfile = UsersProfile::create([
             'user_id' => $user->id,
             'name' => 'admin',
-            'dni' => '37482773Q',
             'surname_first' => 'perez',
         ]);
     }

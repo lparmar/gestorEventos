@@ -34,7 +34,7 @@
                                     DNI
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $user->userProfile->dni }}
+                                    {{ $user->dni }}
                                 </td>
 
                             </tr>

@@ -14,7 +14,7 @@
         <img src="images/logo.png" alt="  Logo" />
     </div>
 
-    <div class="w-full max-w-lg m-auto bg-white sm:p-6 md:p-4 dark:bg-gray-800">
+    <div class="w-full max-w-lg m-auto p-4 bg-white sm:p-6 md:p-4 dark:bg-gray-800">
         <form class="space-y-6" method="POST" action="{{ route('register') }}">
             @csrf
             <h3 class="text-3xl font-bold dark:text-[#013500]">Regístrate</h3>

@@ -8,13 +8,16 @@
     <title>Gestor Eventos</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ asset('flowbite . css') }}">
 </head>
 
 <body>
     <div class="p-4 sm:ml-64">
         <div class="mx-auto justify-center items-center grid gap-6 m-3">
-            <h1 class="font-bold dark:text-white">Listado de actividades</h1>
+            <div class="flex items-center justify-between">
 
+                <h1 class="font-bold dark:text-white">Gestor de eventos</h1>
+            </div>
             <ul
                 class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                 <li

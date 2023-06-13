@@ -194,7 +194,7 @@
     </div>
 
     <footer class="border-[#DEFFE5] bg-[#DEFFE5] dark:bg-[#DEFFE5] dark:border-[#DEFFE5]">
-        <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <div class="w-full mx-auto max-w-screen-xl p-4 flex items-center justify-between">
             <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#"
                     class="hover:underline">Gestor de eventos</a>.
             </span>

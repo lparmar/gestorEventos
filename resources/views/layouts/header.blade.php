@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="{{ asset('dist/css/dropify.min.css') }}">
         <script src="{{ asset('js/sweetalert2/dist/sweetalert2.js') }}"></script>
         <link rel="stylesheet" href="{{ asset('sweetalert2/dist/sweetalert2.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
     </head>
 
     <body class="relative bg-[#fafaf9]">

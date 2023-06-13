@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,4 +66,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/filters-list-teacher-activities', [ActivityController::class, 'listTeacherActivity'])->name('activities.listTeacherActivity');
 });
 
+Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('generatePDF');
 require __DIR__ . '/auth.php';

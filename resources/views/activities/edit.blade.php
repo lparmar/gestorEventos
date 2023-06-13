@@ -89,8 +89,10 @@
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg mb-8">
                 <div class="mx-auto">
-                    <h5 class="mb-8 text-lg font-bold text-gray-900 dark:text-white">{{ $activity->name }}</h5>
-
+                    <div class="flex items-center justify-between">
+                        <h5 class="mb-8 text-lg font-bold text-gray-900 dark:text-white">{{ $activity->name }}</h5>
+                        <img class="rounded w-37 h-36" src="{{ $avatar->getUrl() }}" alt="{{ $avatar->file_name }}">
+                    </div>
                     <form method="POST" action="{{ route('activities.update', $activity) }}"
                         enctype="multipart/form-data">
 
@@ -103,6 +105,7 @@
                                     celebración</label>
                                 <input type="datetime-local" name="dateCelebration" id="dateCelebration"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    value="{{ date('Y-m-d H:i:s', strtotime($activity->date_of_celebration)) }}"
                                     required>
                             </div>
                             <div>
@@ -170,7 +173,8 @@
 
                                     @foreach ($types_activity as $typeActivity)
                                         @if ($activity->activity_types === $typeActivity->id)
-                                            <option value="{{ $typeActivity->id }}" selected>{{ $typeActivity->name }}
+                                            <option value="{{ $typeActivity->id }}" selected>
+                                                {{ $typeActivity->name }}
                                             </option>
                                         @else
                                             <option value="{{ $typeActivity->id }}">{{ $typeActivity->name }}
@@ -200,11 +204,11 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end">
-                            <button type="submit"
-                                class="text-white bg-[#2557D6] hover:bg-blue-800 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Guardar</button>
+                        <div class="flex justify-between">
                             <a class="focus:outline-none text-white bg-[#e75353] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                 href="{{ route('activities.index') }}">Cancelar</a>
+                            <button type="submit"
+                                class="text-white bg-[#2557D6] hover:bg-blue-800 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Guardar</button>
                         </div>
                     </form>
                 </div>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->unsignedBigInteger('body_activity');
             $table->foreign('body_activity')->references('id')->on('body_activities')->onDelete('cascade');
-            $table->date('date_of_celebration')->nullable();
+            $table->datetime('date_of_celebration')->nullable();
             $table->unsignedBigInteger('activity_types');
             $table->foreign('activity_types')->references('id')->on('activity_types')->onDelete('cascade');
             $table->string('place_of_celebration')->nullable();

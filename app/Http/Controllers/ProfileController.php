@@ -55,11 +55,13 @@ class ProfileController extends Controller
             'dni' => $request->dni,
             'email' => $request->email,
         ]);
+        if ($user->roles()->first()->name !== 'admin') {
+            $teacher = Teacher::where('user_id', $userProfile->user_id)->first();
+            $teacher->update([
+                'teaching_body' => $request->bodyTeacher,
+            ]);
+        }
 
-        $teacher = Teacher::where('user_id', $userProfile->user_id)->first();
-        $teacher->update([
-            'teaching_body' => $request->bodyTeacher,
-        ]);
 
         $request->user()->save();
 

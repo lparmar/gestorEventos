@@ -64,16 +64,23 @@
             </ul>
             <div class="p-4 sm:p-4 bg-white shadow sm:rounded-lg">
                 <div class="grid gap-6 mb-6 md:grid-cols-1">
-                    <div>
-                        <label for="underline_select">Profesores</label>
-                        <select id="underline_select"
-                            class="block py-2 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option selected>Seleccione un profesor</option>
-                            @foreach ($teachers as $teacher)
-                                <option value="{{ $teacher->id }}">{{ $teacher->user->userProfile->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <form action="">
+                        <div class="m-8">
+                            <label for="teacher">Profesores</label>
+                            <select id="teacher" name="teacher"
+                                class="block py-2 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                <option selected>Seleccione un profesor</option>
+                                @foreach ($teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ $teacher->user->userProfile->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex justify-end mr-6">
+                            <button type="submit"
+                                class="text-white bg-[#2557D6] hover:bg-blue-800 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Obtener
+                                listado</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

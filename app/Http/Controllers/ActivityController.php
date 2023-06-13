@@ -70,9 +70,10 @@ class ActivityController extends Controller
         $media = $activity->getMedia('documentation_activities');
         $typesActivity = ActivityType::all();
         $bodyActivity = BodyActivity::all();
+        $avatar = $activity->getMedia('activities_avatar')->first();
         Session::flash('tittle', 'Editar actividad');
         return view('activities.edit', [
-            'activity' => $activity, 'types_activity' => $typesActivity, 'body_activity' => $bodyActivity, 'media' => $media
+            'activity' => $activity, 'types_activity' => $typesActivity, 'body_activity' => $bodyActivity, 'media' => $media, 'avatar' => $avatar
         ]);
     }
 
@@ -107,7 +108,6 @@ class ActivityController extends Controller
 
     public function listActivity()
     {
-
         $activities = Activity::all();
         $bodyActivity = BodyActivity::all();
         return view('activities.list', [

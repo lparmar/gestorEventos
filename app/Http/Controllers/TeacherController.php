@@ -49,7 +49,8 @@ class TeacherController extends Controller
     public function show(Activity $activities_list)
     {
         //
-        return view('activities.show', ['activity' => $activities_list]);
+        $media = $activities_list->getMedia('documentation_activities');
+        return view('activities.show', ['activity' => $activities_list, 'media' => $media]);
     }
 
     /**

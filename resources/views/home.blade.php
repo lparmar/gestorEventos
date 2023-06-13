@@ -13,7 +13,11 @@
 
     <nav class="border-[#DEFFE5] bg-[#DEFFE5] dark:bg-[#DEFFE5] dark:border-[#DEFFE5]">
         <div class="flex flex-wrap items-center justify-between mx-4">
-            <img src="images/logo.png" class="h-12 mr-3" alt="  Logo" />
+            <div class="flex items-center justify-start">
+                <img src="images/logo.png" class="h-12 mr-3" alt="  Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Gestor de
+                    eventos</span>
+            </div>
             <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-default" aria-expanded="false">
@@ -55,27 +59,27 @@
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 <!-- Item 1 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.com/docs/images/logo.svg"
+                    <img src="images/conferencias.png" alt="Conferencia"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
                 <!-- Item 2 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.3c5441fc7a190fb1800d4a5c7f07ba4b1345a9c8.svg"
+                    <img src="images/mesasdetrabajo.png" alt="Mesas de trabajo"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
                 <!-- Item 3 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.com/docs/images/logo.svg"
+                    <img src="images/materialdidáctico.png" alt="Material didáctico"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
                 <!-- Item 4 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.3c5441fc7a190fb1800d4a5c7f07ba4b1345a9c8.svg"
+                    <img src="images/gestorinternet.png" alt="Gestor internet"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
                 <!-- Item 5 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="https://flowbite.com/docs/images/logo.svg"
+                    <img src="images/seminarios.png" alt="Seminarios"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
             </div>
@@ -98,8 +102,8 @@
                 data-carousel-prev>
                 <span
                     class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
                         </path>
                     </svg>

@@ -64,28 +64,49 @@
             </ul>
             <div class="p-4 sm:p-4 bg-white shadow sm:rounded-lg">
                 <div class="grid gap-6 mb-6 md:grid-cols-1">
-                    <div>
-                        <label for="underline_select">Nivel educativo</label>
-                        <select id="underline_select"
-                            class="block py-2 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-                            <option selected>Seleccione un nivel educativo</option>
-                            @foreach ($body_activities as $bodyActivity)
-                                <option value="{{ $bodyActivity->id }}">{{ $bodyActivity->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <label for="underline_select">Fechas de celebración</label>
-                    @foreach ($activities as $activity)
-                        <div class="flex items-center">
-                            <input id="default-checkbox" type="checkbox" value="{{ $activity->date_of_celebration }}"
-                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="default-checkbox"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $activity->date_of_celebration }}</label>
+                    <form id="listActivityFilter" method="POST" action="{{ route('generatePDF') }}">
+                        @csrf
+                        @method('GET')
+                        <div class="m-8">
+                            <label for="bodyActivity">Nivel educativo</label>
+                            <select id="bodyActivity" name="bodyActivity"
+                                class="block py-2 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                <option selected>Seleccione un nivel educativo</option>
+                                @foreach ($body_activities as $bodyActivity)
+                                    <option value="{{ $bodyActivity->id }}">{{ $bodyActivity->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                    @endforeach
+                        <div class="m-8">
+                            <input type="hidden" value="{{ $activities }}" id="activities" name="activities">
+                            @if (count($activities) <= 0)
+                                <label for="underline_select">Aún no se han creado actividades.</label>
+                            @else
+                                <label for="date_of_celebration">Fechas de celebración</label>
+                                @foreach ($activities as $activity)
+                                    <div class="mb-4 mt-4 flex items-center">
+                                        <input id="date_of_celebration" type="checkbox" name="date_of_celebration"
+                                            value="{{ $activity->date_of_celebration }}"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-checkbox" id="value_date"
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $activity->date_of_celebration }}</label>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="flex justify-end mr-6">
+                            <button type="submit"
+                                class="text-white bg-[#2557D6] hover:bg-blue-800 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Obtener
+                                listado</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@include('layouts.footer')
+<div id="results"></div>
+@section('js')
+    <script src="{{ asset('js/activity/list_activity.js') }}"></script>
+    @include('layouts.footer')

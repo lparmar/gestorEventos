@@ -16,6 +16,16 @@
     </div>
 
     <div class="w-full max-w-lg m-auto p-4 bg-white sm:p-6 md:p-8 dark:bg-gray-800">
+        @if ($errors->any())
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <ul class="pl-4 list-disc">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form class="space-y-6" method="POST" action="{{ route('login') }}">
             @csrf
             <h3 class="text-3xl font-bold dark:text-[#013500]">Inicia sesión en tu cuenta</h3>
@@ -47,17 +57,6 @@
             </div>
         </form>
     </div>
-    @if ($errors->any())
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-            role="alert">
-            <ul class="pl-4 list-disc">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
 </html>

@@ -64,7 +64,9 @@
             </ul>
             <div class="p-4 sm:p-4 bg-white shadow sm:rounded-lg">
                 <div class="grid gap-6 mb-6 md:grid-cols-1">
-                    <form action="">
+                    <form id="listActivityFilterTeacher" method="POST" action="{{ route('generatePDFTeacher') }}">
+                        @csrf
+                        @method('GET')
                         <div class="m-8">
                             <label for="teacher">Profesores</label>
                             <select id="teacher" name="teacher"

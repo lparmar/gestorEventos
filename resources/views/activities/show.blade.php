@@ -101,7 +101,7 @@
                                         d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z" />
                                 </svg>
                                 <div class="space-y-0.5 font-medium dark:text-white text-left">
-                                    <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    <div id="date_of_celebration" class="text-sm text-gray-500 dark:text-gray-400">
                                         {{ $activity->date_of_celebration }}</div>
                                 </div>
                             </figcaption>
@@ -227,4 +227,8 @@
         </div>
     </div>
 </div>
-@include('layouts.footer')
+
+@section('js')
+    <script src="{{ asset('js/activity/inscription_activity.js') }}"></script>
+
+    @include('layouts.footer')

@@ -250,13 +250,13 @@
                                     {{ $activity->name }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $activity->body_activity }}
+                                    {{ $activity->activityBody->name }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $activity->date_of_celebration }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $activity->activity_types }}
+                                    {{ $activity->activityType->name }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $activity->place_of_celebration }}

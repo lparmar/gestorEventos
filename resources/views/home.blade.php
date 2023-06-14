@@ -140,7 +140,7 @@
                             <path
                                 d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                         </svg>
-                        <p class="font-normal text-gray-700 dark:text-gray-400">
+                        <p id="date_of_celebration" class="ml-2 font-normal text-gray-700 dark:text-gray-400">
                             {{ $activity->date_of_celebration }}
                         </p>
                     </div>
@@ -153,7 +153,7 @@
                             <path
                                 d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z" />
                         </svg>
-                        <p class="font-normal text-gray-700 dark:text-gray-400">
+                        <p class=" ml-2 font-normal text-gray-700 dark:text-gray-400">
                             {{ $activity->activityBody->name }}
                         </p>
                     </div>
@@ -211,6 +211,7 @@
         </div>
     </footer>
 </body>
+@section('js')
+    <script src="{{ asset('js/home/home.js') }}"></script>
 
-
-</html>
+    </html>

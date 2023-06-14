@@ -1,5 +1,5 @@
 const activities = document.getElementById('activities');
-const listActivityFilter = document.getElementById("listActivityFilter");
+
 const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
@@ -22,3 +22,4 @@ date_of_celebration.forEach(element => {
     var newDate = days[date.getDay()]+", "+date.getDate()+" de "+months[date.getMonth()]+" de "+date.getFullYear();
     element.nextSibling.nextElementSibling.innerText = newDate
 });
+

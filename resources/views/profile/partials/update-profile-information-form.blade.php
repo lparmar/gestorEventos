@@ -21,9 +21,12 @@
 
             <div>
                 <label for="dni" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
-                <input type="dni" id="dni" name="dni"
+                <input type="dni" id="dni" name="dni" style="display: block"
                     class="mb-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value="{{ Auth::user()->dni }}">
+                <input type="text" id="error" style="display: none"
+                    class="mb-8 bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500"
+                    placeholder="Debe introducir un DNI válido">
 
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
                     electrónico</label>
@@ -75,7 +78,7 @@
         <div class="flex justify-between">
             <a class="focus:outline-none text-white bg-[#ce5858] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:focus:ring-red-900"
                 href="{{ route('dashboard') }}">Cancelar</a>
-            <button type="submit"
+            <button id="submit" type="submit"
                 class="text-white bg-[#4263b8] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Guardar</button>
         </div>
     </form>

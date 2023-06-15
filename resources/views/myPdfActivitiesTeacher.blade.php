@@ -29,7 +29,8 @@
             </div>
             <ul>
                 <li>
-                    Listado de actividades
+                    Listado de actividades del profesor
+                    {{ $teacher->user->userProfile->name . ' ' . $teacher->user->userProfile->surname_first . ' ' . $teacher->user->userProfile->surname_second }}
                 </li>
             </ul>
 

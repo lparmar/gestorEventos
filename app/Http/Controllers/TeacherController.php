@@ -22,9 +22,9 @@ class TeacherController extends Controller
         $activities = Activity::where('body_activity', $teaching_body_user)->get();
         $typesActivity = ActivityType::all();
         $bodyActivity = BodyActivity::where('id', $teaching_body_user)->first();
-
+        $confirmed_assistance = 0;
         return view('teachers.activities', [
-            'activities' => $activities, 'types_activities' => $typesActivity, 'body_activity' => $bodyActivity
+            'activities' => $activities, 'types_activities' => $typesActivity, 'body_activity' => $bodyActivity, 'confirmed_assistance' => $confirmed_assistance
         ]);
     }
 
@@ -51,7 +51,24 @@ class TeacherController extends Controller
     {
         //
         $media = $activities_list->getMedia('documentation_activities');
-        return view('activities.show', ['activity' => $activities_list, 'media' => $media]);
+        $activities_list->load('teachers');
+        $userregister = false;
+        foreach ($activities_list->teachers as $teacher) {
+            if (Auth::user()->id === $teacher->user_id) {
+                $userregister = true;
+            }
+        }
+        return view('activities.show', ['activity' => $activities_list, 'media' => $media, 'userregister' => $userregister]);
+    }
+
+
+    public function confirmAttendanceShow(Activity $activity)
+    {
+        //
+        $media = $activity->getMedia('documentation_activities');
+        $activity->load('teachers');
+
+        return view('activities.confirmAttendanceShow', ['activity' => $activity, 'media' => $media]);
     }
 
     /**
@@ -86,5 +103,30 @@ class TeacherController extends Controller
         $activity->teachers()->attach($teacher->id);
         Session::flash('message', 'Inscrito correctamente.');
         return redirect()->back();
+    }
+
+    public function confirmAttendance(Request $request)
+    {
+        $activity = Activity::find($request->activity);
+        $teacher = Teacher::where('user_id', $request->teacher)->first();
+
+        $activityTeacher = $activity->teachers()->where('teacher_id', $teacher->id)->first();
+
+        $activityTeacher->pivot->confirmed_assistance = true;
+        $activityTeacher->pivot->save();
+        return redirect()->back();
+    }
+
+    public function activitiesListTeacher()
+    {
+        $teacher = Teacher::where('user_id', Auth::user()->id)->first();
+        $teacher->load('activities');
+
+        $typesActivity = ActivityType::all();
+        $bodyActivity = BodyActivity::where('id', $teacher->teaching_body)->first();
+
+        return view('teachers.activitiesInscription', [
+            'activities' => $teacher->activities, 'types_activities' => $typesActivity, 'body_activity' => $bodyActivity
+        ]);
     }
 }

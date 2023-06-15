@@ -13,38 +13,39 @@ class PDFController extends Controller
     //
     public function generatePDFDateBody(Request $request)
     {
-        $query = Activity::orderBy('name', 'asc');
 
-        if ($request->has('body_activity')) {
-            $query = Activity::where('body_activity', $request->bodyActivity);
+        if ($request->has('bodyActivity') && $request->bodyActivity !== 0) {
+            $activities = Activity::where('body_activity', $request->bodyActivity)->get();
+        } else {
+            $activities = Activity::orderBy('name', 'asc')->get();
         }
 
         if ($request->has('date_of_celebration')) {
-            $query->where('date_of_celebration', 'like', '%' . $request->date_of_celebration . '%');
+            $activities = Activity::orderBy('name', 'asc')->where('date_of_celebration', 'like', '%' . $request->date_of_celebration . '%')->get();
         }
 
 
-        $activities = $query->get();
-
-
-        $pdf = PDF::loadView('myPDFActivities', ['activities' => $activities]);
-        $pdf->setBasePath(public_path(asset('resources/css/app.css'))); // Ruta a tu archivo CSS de Flowbite
+        $pdf = PDF::loadView('myPdfActivities', ['activities' => $activities]);
         return $pdf->download('gestorEventosFecha/Cuerpo.pdf');
     }
 
     public function generatePDFTeacher(Request $request)
     {
-        $query = Teacher::orderBy('name', 'asc');
+        $teacher = Teacher::where('id', $request->teacher)->first();
+        $teacher->load('activities');
 
-        if ($request->has('teacher')) {
-            $query->where('id', $request->teacher);
-        }
+        $pdf = PDF::loadView('myPdfActivitiesTeacher', ['activities' => $teacher->activities, 'teacher' => $teacher]);
 
-        $activities = $query->get();
+        return $pdf->download('gestorEventosTeacher.pdf');
+    }
 
+    public function generatePDFActivity(Request $request)
+    {
+        $activity = Activity::where('id', $request->activity)->first();
+        $activity->load('teachers');
 
-        $pdf = PDF::loadView('myPDFActivities', ['activities' => $activities]);
-        $pdf->setBasePath(public_path(asset('resources/css/app.css'))); // Ruta a tu archivo CSS de Flowbite
-        return $pdf->download('gestorEventosFecha/Cuerpo.pdf');
+        $pdf = PDF::loadView('myPdfActivitiesActivity', ['activity' => $activity, 'teachers' => $activity->teachers]);
+
+        return $pdf->download('gestorEventosActivity.pdf');
     }
 }

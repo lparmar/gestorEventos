@@ -8,6 +8,7 @@ use App\Models\BodyActivity;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class ActivityController extends Controller
@@ -17,9 +18,10 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::all();
+        $activities = Activity::paginate(4);
         $typesActivity = ActivityType::all();
         $bodyActivity = BodyActivity::all();
+        Session::flash('tittle', 'Actividades');
         return view('activities.index', [
             'activities' => $activities, 'types_activities' => $typesActivity, 'body_activities' => $bodyActivity
         ]);
@@ -91,14 +93,6 @@ class ActivityController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Activity $activity)
-    {
-        //
-    }
-
     public function deleteMedia(Activity $activity, $id)
     {
         $media = $activity->getMedia('documentation_activities')->where('id', $id)->first(); // Obtener el archivo en específico
@@ -110,6 +104,7 @@ class ActivityController extends Controller
     {
         $activities = Activity::all();
         $bodyActivity = BodyActivity::all();
+        Session::flash('tittle', 'Listado de actividades');
         return view('activities.list', [
             'activities' => $activities, 'body_activities' => $bodyActivity
         ]);
@@ -120,12 +115,58 @@ class ActivityController extends Controller
     {
         $teachers = Teacher::all();
         $teachers->load('user');
+        Session::flash('tittle', 'Listado de profesores');
         return view('activities.list_teacher', ['teachers' => $teachers]);
     }
 
     public function listTeacherActivity()
     {
         $activities = Activity::all();
+        Session::flash('tittle', 'Listado de actividades');
         return view('activities.list_teacher_activities', ['activities' => $activities]);
+    }
+
+    public function destroy(Activity $activity)
+    {
+        //
+        $activity->delete();
+        Session::flash('delete', "Actividad " . $activity->name . " eliminada correctamente.");
+        return Redirect::to('activities');
+    }
+
+    public function trashed()
+    {
+        //
+        Session::flash('tittle', 'Actividades eliminades');
+        $activities = Activity::onlyTrashed()->get();
+        return view('activities.trashed', ['activities' => $activities]);
+    }
+
+    public function deleting($id)
+    {
+
+        Activity::withTrashed()
+            ->where('id', $id)
+            ->forceDelete();
+
+        return redirect()->back();
+    }
+
+    public function deleteAll()
+    {
+
+        Activity::onlyTrashed()
+            ->forceDelete();
+
+        return redirect()->back();
+    }
+
+    public function restore($id)
+    {
+        Activity::withTrashed()
+            ->where('id', $id)
+            ->restore();
+
+        return redirect()->back();
     }
 }

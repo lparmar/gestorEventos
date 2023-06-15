@@ -157,7 +157,27 @@
                             {{ $activity->activityBody->name }}
                         </p>
                     </div>
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-between">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-pin-angle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1 0 .707c-.48.48-1.072.588-1.503.588-.177 0-.335-.018-.46-.039l-3.134 3.134a5.927 5.927 0 0 1 .16 1.013c.046.702-.032 1.687-.72 2.375a.5.5 0 0 1-.707 0l-2.829-2.828-3.182 3.182c-.195.195-1.219.902-1.414.707-.195-.195.512-1.22.707-1.414l3.182-3.182-2.828-2.829a.5.5 0 0 1 0-.707c.688-.688 1.673-.767 2.375-.72a5.922 5.922 0 0 1 1.013.16l3.134-3.133a2.772 2.772 0 0 1-.04-.461c0-.43.108-1.022.589-1.503a.5.5 0 0 1 .353-.146z" />
+                        </svg>
+                        <p class=" ml-2 font-normal text-gray-700 dark:text-gray-400">
+                            {{ $activity->activityType->name }}
+                        </p>
+                    </div>
+                    <div class="flex items-between">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                        </svg>
+                        <p class=" ml-2 font-normal text-gray-700 dark:text-gray-400">
+                            {{ $activity->place_of_celebration }}
+                        </p>
+                    </div>
+                    <div>
                         @if ($activity->getMedia('activities_avatar')->first() == null)
                             <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"
                                 fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
@@ -166,28 +186,12 @@
                                     d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
                             </svg>
                         @else
-                            <img class="p-4 rounded-t-lg m-auto" style="height: 10rem; width: 10rem"
+                            <img class="p-4 rounded-t-lg m-auto" style="height: 8rem; width: 10rem"
                                 src="{{ $activity->getMedia('activities_avatar')->first()->getUrl() }}"
                                 alt="Bonnie image" />
                         @endif
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Ver información
-                            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
                     </div>
-                </div>
 
-                <div
-                    class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <p class="text-xs text-gray-500 xs:text-sm dark:text-gray-400">MAPA MAPA MAPA APA MAPA MAP APA MAPA
-                        MAP APA MAPA MAP APA MAPA MAP APA MAPA MAP APA MAPA MAP APA MAPA MAP APA MAPA MAP APA MAPA MAP
-                        APA MAPA MAP </p>
                 </div>
             </div>
         @endforeach
@@ -200,17 +204,66 @@
             </span>
             <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
                 <li>
-                    <a href="#"
-                        class="block text-black px-3.5 py-1 bg-transparent hover:bg-[#DEFFE5] focus:outline-none focus:ring-4 focus:ring-[#6CF88B] font-medium rounded-full text-sm text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Información</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block text-black px-3.5 py-1 bg-transparent hover:bg-[#DEFFE5] focus:outline-none focus:ring-4 focus:ring-[#6CF88B] font-medium rounded-full text-sm text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Contacto</a>
+                    <button data-modal-target="static" data-modal-toggle="static"
+                        class="block text-black px-3.5 py-1 bg-transparent hover:bg-[#DEFFE5] focus:outline-none focus:ring-4 focus:ring-[#6CF88B] font-medium rounded-full text-sm text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Contacto</button>
                 </li>
             </ul>
         </div>
     </footer>
 </body>
+
+
+<!-- Main modal -->
+<div id="static" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button"
+                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                data-modal-hide="static">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">¿Cómo podemos ayudarte?</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label for="first_name"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                        <input type="text" id="first_name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="John" required>
+                    </div>
+
+                    <div>
+                        <label for="email"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
+                            eléctronico</label>
+                        <input type="email" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="name@company.com" required>
+                    </div>
+                    <div>
+                        <label for="message"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mensaje</label>
+                        <textarea id="message" rows="4"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 @section('js')
     <script src="{{ asset('js/home/home.js') }}"></script>
 

@@ -43,7 +43,7 @@
             <div style="display:none;">
                 <label for="error" class="block mb-1 text-md font-medium text-red-700 dark:text-red-500">Correo
                     electrónico</label>
-                <input type="email" name="email" id="error"
+                <input type="email" name="error" id="error"
                     class="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-md rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500">
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Por favor, ingresa un
                         correo electrónico válido de Gmail o Hotmail.</p>

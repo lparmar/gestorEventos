@@ -30,8 +30,13 @@ class Teacher extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function projects()
+    public function activities()
     {
-        return $this->belongsToMany(Project::class, 'projects_clients', 'clients_id', 'projects_id');
+        return $this->belongsToMany(Activity::class, 'teacher_assistances', 'teacher_id', 'activity_id')->withPivot('confirmed_assistance');
+    }
+
+    public function activityBody()
+    {
+        return $this->belongsTo(BodyActivity::class, 'teaching_body');
     }
 }

@@ -2,8 +2,8 @@
 @include('layouts.navegation')
 <div class="p-4 sm:ml-64">
     <div class="mx-auto justify-center items-center grid gap-6 m-3">
-        <h1 class="text-lgl font-bold dark:text-white">Usuarios eliminados</h1>
-        @if (count($users) > 0)
+        <h1 class="text-lgl font-bold dark:text-white">Actividades eliminadas</h1>
+        @if (count($activities) > 0)
 
             <div class="flex items-center justify-end mt-4">
                 <div>
@@ -41,13 +41,16 @@
                     <thead class="text-xs text-gray-700 uppercase bg-[#ecfdf5] dark:bg-gray-700 dark:text-gray-400">
                         <tr style="text-align:center">
                             <th scope="col" class="px-6 py-3">
-                                Correo electrónico
+                                Nombre
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Tipo de usuario
+                                Cuerpo de la actividad
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                último acceso
+                                Tipo de actividad
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Fecha de celebración
                             </th>
                             <th scope="col" class="px-6 py-3" colspan="2">
                                 Acción
@@ -55,30 +58,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($activities as $activity)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
                                     class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $user->email }}
+                                    {{ $activity->name }}
                                 </th>
                                 <td class="px-6 py-4 text-center">
-                                    {{ $user->roles()->first()->name }}
+                                    {{ $activity->activityBody->name }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    @if ($user->last_login == null)
-                                        Sin iniciar sesión
-                                    @else
-                                        {{ $user->last_login }}
-                                    @endif
+                                    {{ $activity->activityType->name }}
                                 </td>
                                 <td class="px-6 py-4">
                                     <a class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-xs px-3 py-2 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
-                                        href="{{ route('users.restore', $user->id) }}">RESTAURAR</a>
+                                        href="{{ route('activities.restore', $activity->id) }}">RESTAURAR</a>
                                 </td>
                                 <td class="px-6 py-4">
                                     <a class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-xs px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                                        href="{{ route('users.deleting', $user->id) }}"> ELIMINAR</a>
+                                        href="{{ route('activities.deleting', $activity->id) }}"> ELIMINAR</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -95,7 +94,7 @@
                         clip-rule="evenodd">
                     </path>
                 </svg>
-                <span class="font-medium">No existen usuarios eliminados.</span>
+                <span class="font-medium">No existen actividades eliminadas.</span>
             </div>
         @endif
     </div>

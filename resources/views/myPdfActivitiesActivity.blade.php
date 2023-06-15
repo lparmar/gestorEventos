@@ -29,52 +29,49 @@
             </div>
             <ul>
                 <li>
-                    Listado de actividades
+                    Listado de profesores de la actividad
+                    {{ $activity->name }}
+                </li>
+                <li>
+                    Fecha de celebración
+                    {{ $activity->date_of_celebration }}
                 </li>
             </ul>
 
 
-            @if (count($activities) <= 0)
-                <span>No se han econtrado actividades en la base de datos.</span>
+            @if (count($teachers) <= 0)
+                <span>No se han econtrado profesores asistentes a esta actividad.</span>
             @else
                 <div>
                     <table style="border: 1px solid black;">
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    Nombre
+                                    Profesor
                                 </th>
                                 <th scope="col">
-                                    Cuerpo de la actividad
+                                    Nivel de enseñanza
                                 </th>
                                 <th scope="col">
-                                    Fecha de celebración
-                                </th>
-                                <th scope="col">
-                                    Tipo de actividad
-                                </th>
-                                <th scope="col">
-                                    Lugar de celebración
+                                    Confirmación de asistencia
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($activities as $activity)
+                            @foreach ($teachers as $teacher)
                                 <tr class="">
                                     <td>
-                                        {{ $activity->name }}
+                                        {{ $teacher->user->userProfile->name .
+                                            ' ' .
+                                            $teacher->user->userProfile->surname_first .
+                                            ' ' .
+                                            $teacher->user->userProfile->surname_second }}
                                     </td>
                                     <td>
-                                        {{ $activity->activityBody->name }}
+                                        {{ $teacher->activityBody->name }}
                                     </td>
                                     <td>
-                                        {{ $activity->date_of_celebration }}
-                                    </td>
-                                    <td>
-                                        {{ $activity->activityType->name }}
-                                    </td>
-                                    <td>
-                                        {{ $activity->place_of_celebration }}
+                                        {{ $activity->teachers()->where('teacher_id', $teacher->id)->first()->pivot->confirmed_assistance? 'Confirmada': 'Sin confirmar' }}
                                     </td>
                                 </tr>
                             @endforeach

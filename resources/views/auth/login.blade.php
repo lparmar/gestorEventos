@@ -51,10 +51,7 @@
             <button type="submit"
                 class="w-full text-[#013500] bg-[#6CF88B] hover:bg-[#32DB57] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-lg px-5 py-2.5 text-center dark:bg-[#32DB57] dark:hover:bg-[#32DB57] dark:focus:ring-[#32DB57]">Iniciar
                 sesión</button>
-            <div class="flex items-start">
-                <a href="#" class="text-md text-[#27CE4C] underline dark:text-blue-500">¿Has olvidado tu
-                    contraseña?</a>
-            </div>
+
         </form>
     </div>
 </body>

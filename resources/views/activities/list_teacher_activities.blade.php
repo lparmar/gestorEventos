@@ -64,10 +64,12 @@
             </ul>
             <div class="p-4 sm:p-4 bg-white shadow sm:rounded-lg">
                 <div class="grid gap-6 mb-6 md:grid-cols-1">
-                    <form action="">
+                    <form id="listActivityFilterActivity" method="POST" action="{{ route('generatePDFActivity') }}">
+                        @csrf
+                        @method('GET')
                         <div class="m-8">
-                            <label for="underline_select">Actividades</label>
-                            <select id="underline_select"
+                            <label for="activity">Actividades</label>
+                            <select name="activity" id="activity"
                                 class="block py-2 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                                 <option selected>Seleccione una actividad</option>
                                 @foreach ($activities as $activity)

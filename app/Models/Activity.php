@@ -32,7 +32,7 @@ class Activity extends Model implements HasMedia
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'teacher_assistances', 'activity_id', 'teacher_id');
+        return $this->belongsToMany(Teacher::class, 'teacher_assistances', 'activity_id', 'teacher_id')->withPivot('confirmed_assistance');
     }
 
     //media

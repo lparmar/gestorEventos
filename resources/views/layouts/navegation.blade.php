@@ -74,7 +74,7 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="#"
+                    <a href="{{ route('dashboard') }}"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#DEFFE5] dark:hover:bg-gray-700">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -174,7 +174,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('activities-list.index') }}" id="activity-list"
+                        <a href="{{ route('activities-list-teacher.activitiesInsription') }}"
+                            id="activities-list-teacher"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#BCF0DA] dark:hover:bg-gray-700">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">

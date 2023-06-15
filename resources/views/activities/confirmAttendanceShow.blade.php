@@ -58,9 +58,9 @@
             class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
             <li
                 class="mr-2 inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">
-                Información de la actividad
+                Confirmación de asistencia
             </li>
-        </ul>
+        </ul>   
         <div
             class="w-full max-w-sm m-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             @if ($activity->getMedia('activities_avatar')->first() == null)
@@ -212,21 +212,25 @@
                         </div>
                     </div>
                 @endif
-                <input type="hidden" id="userregister" value="{{ $userregister }}">
+
                 <input type="hidden" id="activity" value="{{ $activity->id }}">
-                @if (!$userregister)
-                    <form method="POST" action="{{ route('activities-list.createInscription') }}">
-                        @csrf
-                        <input type="hidden" name="teacher" value="{{ Auth::user()->id }}">
-                        <input type="hidden" name="activity" value="{{ $activity->id }}">
-                        <div class="flex justify-between">
-                            <a class="focus:outline-none text-white bg-[#e75353] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                href="{{ route('activities-list.index') }}">Cancelar</a>
-                            <button type="submit"
-                                class="text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Inscribirme</button>
-                        </div>
-                    </form>
-                @endif
+
+                <form method="POST" action="{{ route('activities-list.confirmAttendance') }}">
+                    @csrf
+                    <input type="hidden" name="teacher" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="activity" value="{{ $activity->id }}">
+
+                    <div class="flex justify-between">
+                        <a class="focus:outline-none text-white bg-[#e75353] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            href="{{ route('activities-list.index') }}">Cancelar inscripción</a>
+
+                        <button type="submit"
+                            class="text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 mr-2">Confirmar
+                            asistencia</button>
+
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

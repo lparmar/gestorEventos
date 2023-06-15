@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard')->with('activities', Activity::all());
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -47,6 +47,12 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     Route::get('/force-delete-users', [UserController::class, 'deleteAll'])->name('users.deleteAll');
     Route::get('/force-delete-users/{id}', [UserController::class, 'deleting'])->name('users.deleting');
+
+    Route::get('/trashed-activities', [ActivityController::class, 'trashed'])->name('activities.trashed');
+    Route::get('/restore-activities/{id}', [ActivityController::class, 'restore'])->name('activities.restore');
+
+    Route::get('/force-delete-activities', [ActivityController::class, 'deleteAll'])->name('activities.deleteAll');
+    Route::get('/force-delete-activities/{id}', [ActivityController::class, 'deleting'])->name('activities.deleting');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
@@ -62,6 +68,10 @@ Route::middleware('auth')->group(function () {
         ->only(['index', 'store', 'edit', 'update', 'destroy', 'show'])
         ->names('activities-list');
     Route::post('activities-list/inscription', [TeacherController::class, 'createInscription'])->name('activities-list.createInscription');
+    Route::post('activities-list/confirm-attendance', [TeacherController::class, 'confirmAttendance'])->name('activities-list.confirmAttendance');
+
+    Route::get('/activities-list-teacher', [TeacherController::class, 'activitiesListTeacher'])->name('activities-list-teacher.activitiesInsription');
+    Route::get('activities-list-teacher/{activity}', [TeacherController::class, 'confirmAttendanceShow'])->name('activities-list-confirmAttendance.confirmAttendance');
     Route::get('/user-profile/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/filters-activities-list', [ActivityController::class, 'listActivity'])->name('activities.listActivity');
     Route::get('/filters-activities-list-teacher', [ActivityController::class, 'listTeacher'])->name('activities.listTeacher');
@@ -70,4 +80,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('generate-pdf', [PDFController::class, 'generatePDFDateBody'])->name('generatePDFDateBody');
 Route::get('generatePDFTeacher', [PDFController::class, 'generatePDFTeacher'])->name('generatePDFTeacher');
+Route::get('generatePDFActivity', [PDFController::class, 'generatePDFActivity'])->name('generatePDFActivity');
+
 require __DIR__ . '/auth.php';

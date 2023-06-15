@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::orderBy('email', 'asc')->get();
+        $users = User::orderBy('email', 'asc')->paginate(4);
         $bodyActivities = BodyActivity::all();
         return view('users.index', [
             'users' => $users, 'bodyActivities' => $bodyActivities

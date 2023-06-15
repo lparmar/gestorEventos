@@ -124,7 +124,13 @@
                 </span>
             </button>
         </div>
+        <div class="p-4 mb-4 text-sm dark:text-white rounded-lg bg-green-50 dark:bg-gray-800" role="alert">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Jornadas de
+                trabajo, sobre
+                la utilización de internet en el aula</h5>
+        </div>
     </div>
+
     <div class="mx-auto items-center grid gap-6 m-3 md:grid-cols-3 grid-cols-1">
         @foreach ($activities as $activity)
             <div

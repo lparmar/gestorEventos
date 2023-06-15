@@ -60,7 +60,7 @@
                 class="mr-2 inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">
                 Confirmación de asistencia
             </li>
-        </ul>   
+        </ul>
         <div
             class="w-full max-w-sm m-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             @if ($activity->getMedia('activities_avatar')->first() == null)
@@ -214,7 +214,6 @@
                 @endif
 
                 <input type="hidden" id="activity" value="{{ $activity->id }}">
-
                 <form method="POST" action="{{ route('activities-list.confirmAttendance') }}">
                     @csrf
                     <input type="hidden" name="teacher" value="{{ Auth::user()->id }}">
@@ -230,7 +229,6 @@
 
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

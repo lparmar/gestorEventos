@@ -25,6 +25,7 @@ class UserController extends Controller
         //
         $users = User::orderBy('email', 'asc')->paginate(4);
         $bodyActivities = BodyActivity::all();
+        Session::flash('tittle', 'Listado de usuarios');
         return view('users.index', [
             'users' => $users, 'bodyActivities' => $bodyActivities
         ]);
@@ -75,6 +76,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
+        Session::flash('tittle', 'Mis datos');
         return view('users.show', [
             'user' => $user, 'userProfile' => $user->userProfile,
         ]);

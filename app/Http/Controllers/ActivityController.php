@@ -21,7 +21,7 @@ class ActivityController extends Controller
         $activities = Activity::paginate(4);
         $typesActivity = ActivityType::all();
         $bodyActivity = BodyActivity::all();
-        Session::flash('tittle', 'Actividades');
+        Session::flash('tittle', 'Listado de actividades');
         return view('activities.index', [
             'activities' => $activities, 'types_activities' => $typesActivity, 'body_activities' => $bodyActivity
         ]);
@@ -90,6 +90,12 @@ class ActivityController extends Controller
                 $activity->addMedia($documentation)->toMediaCollection('documentation_activities');
             }
         }
+
+        $activity->update([
+            'activity_types' => $request->activity_type,
+            'body_activity' => $request->activity_body,
+        ]);
+
         return redirect()->back();
     }
 

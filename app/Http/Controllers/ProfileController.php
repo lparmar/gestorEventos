@@ -26,6 +26,7 @@ class ProfileController extends Controller
         $userProfile = UsersProfile::where('user_id', $request->user()->id)->first();
         $image = $userProfile->getMedia('users_avatar')->first();
         $bodyActivities = BodyActivity::all();
+        Session::flash('tittle', 'Editar perfil');
         return view('profile.edit', [
             'userProfile' => $userProfile, 'user' => $request->user(), 'image' => $image, 'bodyActivities' => $bodyActivities
         ]);

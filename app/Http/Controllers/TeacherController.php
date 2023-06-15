@@ -23,6 +23,7 @@ class TeacherController extends Controller
         $typesActivity = ActivityType::all();
         $bodyActivity = BodyActivity::where('id', $teaching_body_user)->first();
         $confirmed_assistance = 0;
+        Session::flash('tittle', 'Listado de actividades');
         return view('teachers.activities', [
             'activities' => $activities, 'types_activities' => $typesActivity, 'body_activity' => $bodyActivity, 'confirmed_assistance' => $confirmed_assistance
         ]);
@@ -53,6 +54,7 @@ class TeacherController extends Controller
         $media = $activities_list->getMedia('documentation_activities');
         $activities_list->load('teachers');
         $userregister = false;
+        Session::flash('tittle', 'Actividad' . $activities_list->name);
         foreach ($activities_list->teachers as $teacher) {
             if (Auth::user()->id === $teacher->user_id) {
                 $userregister = true;
@@ -114,7 +116,9 @@ class TeacherController extends Controller
 
         $activityTeacher->pivot->confirmed_assistance = true;
         $activityTeacher->pivot->save();
-        return redirect()->back();
+        $confirmed_assistance = $activityTeacher->pivot->confirmed_assistance;
+        Session::flash('message', 'Incsripción confirmada correctamente.');
+        return redirect()->back()->with(['confirmed_assistance' => $confirmed_assistance]);
     }
 
     public function activitiesListTeacher()
